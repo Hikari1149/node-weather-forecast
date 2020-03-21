@@ -14,11 +14,16 @@ const forecast = (lat,lng,callback)=>{
             const degree = currently.temperature
             const rainChance = currently.precipProbability*100
             const dailySummary = body.daily.data[0].summary
-            //console.log(`${dailySummary} It is currently ${degree} degrees out. There is a ${rainChance}% chance of rain`) 
+            const [dailyObj] = body.daily.data
+            const {temperatureHigh:degreeHigh , temperatureLow:degreeLow} = dailyObj 
+            const summaryText  = `${dailySummary} It is currently ${degree} degrees out. The temperature is between ${degreeLow} and ${degreeHigh} 
+            There is a ${rainChance}% chance of rain`
+
+
             callback(undefined,{
                 degree,
                 rainChance,
-                dailySummary,
+                dailySummary:summaryText,
             })
         }
 
